@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StatusBar } from 'react-native';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
@@ -13,7 +13,7 @@ const App = () => {
     <>
       <NavigationContainer>
         <StatusBar backgroundColor={theme.backgroundColor} />
-        <Stack.Navigator initialRouteName="Start" headerMode="none">
+        <Stack.Navigator initialRouteName="Main" headerMode="none">
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>

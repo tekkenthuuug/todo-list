@@ -1,21 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, Animated } from 'react-native';
-import styles from './todo.styles';
+import React from 'react';
+import { Animated, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import styles from './todo.styles';
 
-export const Todo = ({ item: { name, icon, createdAt }, index }) => {
-  const opacity = useRef(new Animated.Value(0)).current;
-
-  useEffect(() => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: (index + 1) * 200,
-      useNativeDriver: false,
-    }).start();
-  }, [opacity]);
-
+export const Todo = ({ item: { name, icon, createdAt } }) => {
   return (
-    <Animated.View style={[styles.container, { opacity }]}>
+    <Animated.View style={styles.container}>
       <View>
         <Icon
           name={icon.name}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { MainHeader, Todo } from '../../components';
+import { MainHeader, Todo, OpacityView } from '../../components';
 import storage from '../../storage/index';
 import styles from './main.styles';
 
@@ -108,7 +108,12 @@ export const Main = ({ navigation }) => {
           )}
           data={data}
           style={styles.todoList}
-          renderItem={(props) => <Todo {...props} />}
+          renderItem={(props) => (
+            <OpacityView
+              animationConfig={{ duration: (props.index + 1) * 200 }}>
+              <Todo {...props} />
+            </OpacityView>
+          )}
           keyExtractor={(todo) => todo.id.toString()}
         />
       </View>

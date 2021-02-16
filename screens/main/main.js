@@ -8,31 +8,66 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 const data = [
   {
     id: 0,
-    name: 'Task0',
+    name: 'Drink milk',
+    icon: {
+      bgColor: 'red',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 1,
-    name: 'Task1',
+    name: 'Clean room',
+    icon: {
+      bgColor: 'blue',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 2,
-    name: 'Task2',
+    name: 'Buy milk',
+    icon: {
+      bgColor: 'green',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 3,
-    name: 'Task3',
+    name: 'Do the dishes',
+    icon: {
+      bgColor: 'lightblue',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 4,
     name: 'Task4',
+    icon: {
+      bgColor: '#aaa',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 5,
     name: 'Task5',
+    icon: {
+      bgColor: '#aaa',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
   {
     id: 6,
     name: 'Task6',
+    icon: {
+      bgColor: '#aaa',
+      name: 'card',
+    },
+    createdAt: Date.now(),
   },
 ];
 

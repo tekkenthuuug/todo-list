@@ -3,9 +3,19 @@ import { View, Text, Animated } from 'react-native';
 import styles from './todo.styles';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export const Todo = ({ item: { name, icon, createdAt } }) => {
+export const Todo = ({ item: { name, icon, createdAt }, index }) => {
+  const opacity = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    Animated.timing(opacity, {
+      toValue: 1,
+      duration: (index + 1) * 200,
+      useNativeDriver: false,
+    }).start();
+  }, [opacity]);
+
   return (
-    <View style={styles.container}>
+    <Animated.View style={[styles.container, { opacity }]}>
       <View>
         <Icon
           name={icon.name}
@@ -16,13 +26,10 @@ export const Todo = ({ item: { name, icon, createdAt } }) => {
       <View>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.createdAt}>
-          Created at: {new Date(createdAt).toLocaleDateString()}
+          {' '}
+          Created at: {new Date(createdAt).toLocaleDateString()}{' '}
         </Text>
       </View>
-    </View>
+    </Animated.View>
   );
-};
-
-export const TodoSeparator = () => {
-  return <View style={styles.separator} />;
 };

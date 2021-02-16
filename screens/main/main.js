@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Text, View, FlatList, TouchableOpacity, Animated } from 'react-native';
-import { Todo, TodoSeparator, MainHeader } from '../../components';
+import React, { useEffect, useRef, useState } from 'react';
+import { Animated, FlatList, Text, TouchableOpacity, View } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { MainHeader, Todo } from '../../components';
 import storage from '../../storage/index';
 import styles from './main.styles';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const data = [
   {
@@ -76,13 +76,14 @@ export const Main = ({ navigation }) => {
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    storage.getName().then((name) => {
+    (async () => {
+      const name = await storage.getName();
       if (name && name.length > 0) {
         setName(name);
       } else {
         navigation.navigate('Start');
       }
-    });
+    })();
   }, []);
 
   const onPress = () => {
@@ -107,8 +108,7 @@ export const Main = ({ navigation }) => {
           )}
           data={data}
           style={styles.todoList}
-          ItemSeparatorComponent={TodoSeparator}
-          renderItem={Todo}
+          renderItem={(props) => <Todo {...props} />}
           keyExtractor={(todo) => todo.id.toString()}
         />
       </View>

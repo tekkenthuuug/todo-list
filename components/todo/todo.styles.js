@@ -7,10 +7,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  separator: {
-    height: 2,
-    backgroundColor: 'rgba(0,0,0,0.1)',
-  },
   icon: {
     padding: 12,
     color: '#fff',

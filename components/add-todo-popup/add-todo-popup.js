@@ -22,13 +22,17 @@ const AddTodoPopup = ({ onSubmit }) => {
     }).start();
   }, [scaleAnim]);
 
-  const handleButtonPress = () => {
+  const handleTodoSubmit = () => {
     if (!name) {
       return;
     }
 
     onSubmit({
       name,
+      icon: {
+        bgColor: 'red',
+        name: 'card',
+      },
       createdAt: Date.now(),
     });
   };
@@ -50,9 +54,10 @@ const AddTodoPopup = ({ onSubmit }) => {
         placeholder="Todo name..."
         style={styles.input}
         onChangeText={(text) => setName(text)}
+        onSubmitEditing={handleTodoSubmit}
       />
       <TouchableOpacity style={styles.addButton}>
-        <Button title="Add todo" onPress={handleButtonPress} />
+        <Button title="Add todo" onPress={handleTodoSubmit} />
       </TouchableOpacity>
     </Animated.View>
   );

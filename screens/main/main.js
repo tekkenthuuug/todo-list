@@ -6,95 +6,37 @@ import AddTodoPopup from '../../components/add-todo-popup/add-todo-popup';
 import storage from '../../storage/index';
 import styles from './main.styles';
 
-const data = [
-  {
-    id: 0,
-    name: 'Drink milk',
-    icon: {
-      bgColor: 'red',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 1,
-    name: 'Clean room',
-    icon: {
-      bgColor: 'blue',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 2,
-    name: 'Buy milk',
-    icon: {
-      bgColor: 'green',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 3,
-    name: 'Do the dishes',
-    icon: {
-      bgColor: 'lightblue',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 4,
-    name: 'Task4',
-    icon: {
-      bgColor: '#aaa',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 5,
-    name: 'Task5',
-    icon: {
-      bgColor: '#aaa',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-  {
-    id: 6,
-    name: 'Task6',
-    icon: {
-      bgColor: '#aaa',
-      name: 'card',
-    },
-    createdAt: Date.now(),
-  },
-];
-
 export const Main = ({ navigation }) => {
-  const [name, setName] = useState('');
   const [addPopupOpened, setAddPopupOpened] = useState(false);
+  const [name, setName] = useState('');
+  const [todos, setTodos] = useState([]);
 
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     (async () => {
       const name = await storage.getName();
+      const todos = await storage.getTodosList();
+
       if (name && name.length > 0) {
         setName(name);
       } else {
         navigation.navigate('Start');
       }
+
+      setTodos(Object.values(todos));
     })();
-  }, []);
+  }, [navigation]);
 
   const onAddPress = () => {
     setAddPopupOpened((opened) => !opened);
   };
 
-  const handleAddTodo = (todo) => {
-    console.log(todo);
+  const handleAddTodo = async (todo) => {
+    const newTodos = await storage.addTodo(todo);
+
+    setTodos(Object.values(newTodos));
+    setAddPopupOpened(false);
   };
 
   return (
@@ -114,7 +56,7 @@ export const Main = ({ navigation }) => {
             [{ nativeEvent: { contentOffset: { y: scrollY } } }],
             { useNativeDriver: false },
           )}
-          data={data}
+          data={todos}
           style={styles.todoList}
           renderItem={(props) => (
             <OpacityView

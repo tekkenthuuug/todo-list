@@ -2,15 +2,17 @@ import MMKVAdapter from './adapters/mmkv-adapter';
 
 const adapter = MMKVAdapter;
 
-const setName = async (name) => {
-  await adapter.setItem('name', name);
-};
+const setName = adapter.setName;
 
-const getName = async () => {
-  return await adapter.getItem('name');
-};
+const getName = adapter.getName;
+
+const addTodo = adapter.addTodo;
+
+const getTodosList = adapter.getTodosList;
 
 export default {
   setName,
   getName,
+  addTodo,
+  getTodosList,
 };

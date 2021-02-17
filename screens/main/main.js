@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { MainHeader, Todo, OpacityView } from '../../components';
+import AddTodoPopup from '../../components/add-todo-popup/add-todo-popup';
 import storage from '../../storage/index';
 import styles from './main.styles';
 
@@ -73,6 +74,8 @@ const data = [
 
 export const Main = ({ navigation }) => {
   const [name, setName] = useState('');
+  const [addPopupOpened, setAddPopupOpened] = useState(false);
+
   const scrollY = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -86,8 +89,12 @@ export const Main = ({ navigation }) => {
     })();
   }, []);
 
-  const onPress = () => {
-    console.log(scrollY);
+  const onAddPress = () => {
+    setAddPopupOpened((opened) => !opened);
+  };
+
+  const handleAddTodo = (todo) => {
+    console.log(todo);
   };
 
   return (
@@ -96,9 +103,10 @@ export const Main = ({ navigation }) => {
       <View style={styles.todos}>
         <View style={styles.todosHeader}>
           <Text style={styles.todosTitle}>Your todos</Text>
-          <TouchableOpacity onPress={onPress}>
+          <TouchableOpacity onPress={onAddPress}>
             <Icon name="card-plus" size={26} style={styles.addTodo} />
           </TouchableOpacity>
+          {addPopupOpened && <AddTodoPopup onSubmit={handleAddTodo} />}
         </View>
         <FlatList
           scrollEventThrottle={16}

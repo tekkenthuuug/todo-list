@@ -8,11 +8,14 @@ const getName = adapter.getName;
 
 const addTodo = adapter.addTodo;
 
-const getTodosList = adapter.getTodosList;
+const deleteTodoById = adapter.deleteTodoById;
+
+const getTodosMap = adapter.getTodosMap;
 
 export default {
   setName,
   getName,
   addTodo,
-  getTodosList,
+  getTodosMap,
+  deleteTodoById,
 };

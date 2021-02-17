@@ -12,28 +12,37 @@ const getName = async () => {
   return await MMKV.getStringAsync('name');
 };
 
-const addTodo = async (todo) => {
-  const todoWithId = { ...todo, id: v4() };
+const getTodosMap = async () => {
   const todos = await MMKV.getMapAsync('todos');
 
-  const newTodos = todos
-    ? { [todoWithId.id]: todoWithId, ...todos }
-    : { [todoWithId.id]: todoWithId };
-
-  await MMKV.setMapAsync('todos', newTodos);
-
-  return newTodos;
+  return todos ? todos : {};
 };
 
-const getTodosList = async () => {
-  const todos = await MMKV.getMapAsync('todos');
+const addTodo = async (todo) => {
+  const todoWithId = { ...todo, id: v4() };
+  const todos = await getTodosMap();
 
-  return todos ? todos : [];
+  todos[todoWithId.id] = todoWithId;
+
+  await MMKV.setMapAsync('todos', todos);
+
+  return todos;
+};
+
+const deleteTodoById = async (todoId) => {
+  const todos = await getTodosMap();
+
+  delete todos[todoId];
+
+  await MMKV.setMapAsync('todos', todos);
+
+  return todos;
 };
 
 export default {
   setName,
   getName,
   addTodo,
-  getTodosList,
+  getTodosMap,
+  deleteTodoById,
 };

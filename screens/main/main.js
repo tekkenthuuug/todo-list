@@ -16,7 +16,7 @@ export const Main = () => {
   useEffect(() => {
     (async () => {
       const name = await storage.getName();
-      const todos = await storage.getTodosList();
+      const todos = await storage.getTodosMap();
 
       setName(name);
 
@@ -35,8 +35,10 @@ export const Main = () => {
     setAddPopupOpened(false);
   };
 
-  const handleDeleteTodo = (todo) => {
-    console.log(todo);
+  const handleDeleteTodo = async (todo) => {
+    const newTodos = await storage.deleteTodoById(todo.id);
+
+    setTodos(Object.values(newTodos));
   };
 
   return (

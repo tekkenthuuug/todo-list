@@ -6,7 +6,7 @@ import AddTodoPopup from '../../components/add-todo-popup/add-todo-popup';
 import storage from '../../storage/index';
 import styles from './main.styles';
 
-export const Main = ({ navigation }) => {
+export const Main = () => {
   const [addPopupOpened, setAddPopupOpened] = useState(false);
   const [name, setName] = useState('');
   const [todos, setTodos] = useState([]);
@@ -18,15 +18,11 @@ export const Main = ({ navigation }) => {
       const name = await storage.getName();
       const todos = await storage.getTodosList();
 
-      if (name && name.length > 0) {
-        setName(name);
-      } else {
-        navigation.navigate('Start');
-      }
+      setName(name);
 
       setTodos(Object.values(todos));
     })();
-  }, [navigation]);
+  }, []);
 
   const onAddPress = () => {
     setAddPopupOpened((opened) => !opened);
@@ -37,6 +33,10 @@ export const Main = ({ navigation }) => {
 
     setTodos(Object.values(newTodos));
     setAddPopupOpened(false);
+  };
+
+  const handleDeleteTodo = (todo) => {
+    console.log(todo);
   };
 
   return (
@@ -61,7 +61,7 @@ export const Main = ({ navigation }) => {
           renderItem={(props) => (
             <OpacityView
               animationConfig={{ duration: (props.index + 1) * 200 }}>
-              <Todo {...props} />
+              <Todo {...props} onDeletePress={handleDeleteTodo} />
             </OpacityView>
           )}
           keyExtractor={(todo) => todo.id.toString()}

@@ -1,10 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, TextInput } from 'react-native';
 import { SlideInView, OpacityView } from '../../components';
 import styles from './start.styles';
 import storage from '../../storage/index';
 
 export const Start = ({ navigation }) => {
+  useEffect(() => {
+    (async () => {
+      const name = await storage.getName();
+
+      if (name && name.length > 0) {
+        navigation.navigate('Main');
+      }
+    })();
+  }, [navigation]);
+
   const handleSubmitEditing = async (e) => {
     const text = e.nativeEvent.text;
 

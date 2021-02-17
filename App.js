@@ -13,7 +13,7 @@ const App = () => {
     <>
       <NavigationContainer>
         <StatusBar backgroundColor={theme.backgroundColor} />
-        <Stack.Navigator initialRouteName="Main" headerMode="none">
+        <Stack.Navigator initialRouteName="Start" headerMode="none">
           <Stack.Screen name="Start" component={Start} />
           <Stack.Screen name="Main" component={Main} />
         </Stack.Navigator>

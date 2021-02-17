@@ -52,6 +52,7 @@ const AddTodoPopup = ({ onSubmit }) => {
       <View style={styles.conn} />
       <TextInput
         placeholder="Todo name..."
+        autoFocus
         style={styles.input}
         onChangeText={(text) => setName(text)}
         onSubmitEditing={handleTodoSubmit}
